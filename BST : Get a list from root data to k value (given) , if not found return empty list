@@ -1,0 +1,20 @@
+BST pgm to return list from root data to kth value which is in our tree , if there is no such k value in our tree return empty list 
+
+
+# def findPathBST(root, k):
+#     if not root:
+#         return []
+    
+#     if node < root.data:
+#         left = findPathBST(root.left, k)
+#         if left:
+#             left.append(root.data)
+#         return left
+    
+#     if node > root.data:
+#         right = findPathBST(root.right, k)
+#         if right:
+#             right.append(root.data)
+#         return right
+    
+#     return [root.data]
