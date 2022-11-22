@@ -1,0 +1,110 @@
+#  we are creating BST class , it will hadle all the operation and create whole tree .
+class BinaryTreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+class BST:
+    
+    def __init__(self):
+        self.root = None
+        self.numNodes = 0
+        
+    # for print the ______________________________________________________________________
+    def printTreeHelper(self, root):
+        if root is None:
+            return 
+    
+        print(root.data, end = ':')
+        if root.left:
+            print('L:' + str(root.left.data), end = ',')
+
+        if root.right:
+            print('R:' + str(root.right.data), end = '')
+
+        print()
+
+        self.printTreeHelper(root.left)
+        self.printTreeHelper(root.right)
+    
+    def printTree(self):
+    	self.printTreeHelper(self.root)
+      
+   # for searching element in BST ______________________________________________________________________
+    def searchHelper(self, root, data):
+        if root is None:
+            return False
+        if data < root.data:
+            return self.searchHelper(root.left, data)
+        if data > root.data:
+            return self.searchHelper(root.right, data)
+        return True
+    
+    def search(self, data):
+    	return self.searchHelper(self.root, data)
+      
+  # for inserting element in BST ______________________________________________________________________
+    def insertHelper(self, root, data):
+        if root is None:
+            return BinaryTreeNode(data)
+        if data <= root.data:
+            root.left = self.insertHelper(root.left, data)
+        else:
+            root.right = self.insertHelper(root.right, data)
+        return root
+        
+    def insert(self, data):
+            self.root = self.insertHelper(self.root, data)
+            self.numNodes += 1
+       
+       
+    #_____________________get min in BST _____________  
+    def getMin(self, root):
+        if root is None:
+            return 100000
+        
+        leftMin = self.getMin(root.left)
+        rightMin = self.getMin(root.right)
+
+        return min(leftMin, rightMin, root.data)
+        
+        
+        
+    # for deleting element in BST ______________________________________________________________________
+    def deleteHelper(self, root, data):
+        if root is None:
+            return False, root
+        if data < root.data:
+            deleted, root.left = self.deleteHelper(root.left, data)
+            return deleted, root
+        if data > root.data:
+            deleted, root.right = self.deleteHelper(root.right, data)
+            return deleted, root
+        if root.left is None and root.right is None:
+            return True, None
+        if not root.right:
+            return True, root.left
+        if not root.left:
+            return True, root.right
+        rightMin = self.getMin(root.right)
+        root.data = rightMin
+        deleted, root.right = self.deleteHelper(root.right, rightMin)
+        return deleted, root
+        
+    def delete(self, data):
+        deleted, self.root = self.deleteHelper(self.root, data)
+        if deleted:
+            self.numNodes -= 1
+        return deleted
+    
+   # for count element in BST ______________________________________________________________________
+    def count(self):
+        return self.numNodes
+        
+b = BST()
+
+
+# use these operationsa as per need :   print , delete , insert , search ,count elements 
+
+
+
