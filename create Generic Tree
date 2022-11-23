@@ -1,0 +1,31 @@
+# these are the fuction that i can use here : Takeinput for tree , print tree
+class Tree:
+    def __init__(self,data):
+        self.data = data
+        self.children = list()
+ 
+def printTreeDetail(root):
+    if root == None: #egde case it is not base case 
+        return
+    print(root.data ,end=":")
+    for child in root.children :
+        print(child.data ,end=",")
+    print()
+    for child in root.children:
+        printTreeDetail(child)
+
+def takeinput():
+    rootData = int(input("enter root data:"))
+    if rootData == -1 :
+        return None
+    root = Tree(rootData)
+    print('how many children you want for ',rootData)
+    childcount = int(input())
+    for i in range(childcount):
+        child = takeinput()
+        root.children.append(child)
+    return root
+
+print("enter 0 if you don't want any any child of root ")
+root = takeinput()
+printTreeDetail(root)
